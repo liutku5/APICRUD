@@ -1,6 +1,6 @@
 package org.example;
 
-public class User {
+public class Place {
 
     private String code;
     private String name;
@@ -9,10 +9,10 @@ public class User {
     private String coordinates;
 
 
-    public User() {
+    public Place() {
     }
 
-    public User(String code, String name, String administrativeDivision, String countryCode, String coordinates) {
+    public Place(String code, String name, String administrativeDivision, String countryCode, String coordinates) {
         this.code = code;
         this.name = name;
         this.administrativeDivision = administrativeDivision;
@@ -58,6 +58,18 @@ public class User {
 
     public void setCoordinates(String coordinates) {
         this.coordinates = coordinates;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Place place = (Place) obj;
+        return code.equals(place.code) ;
     }
 
     @Override
