@@ -1,5 +1,7 @@
 package org.example;
 
+import java.util.Objects;
+
 public class Place {
 
     private String code;
@@ -69,7 +71,12 @@ public class Place {
             return false;
         }
         Place place = (Place) obj;
-        return code.equals(place.code) ;
+        return Objects.equals(code, place.code);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(code);
     }
 
     @Override

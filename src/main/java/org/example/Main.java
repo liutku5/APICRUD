@@ -14,13 +14,22 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Hello world!");
         gson = new Gson();
-        Place p1 = new Place("abromiskes","Abromiškės","Elektrėnų savivaldybė","LT",54.7825);
-        Place p2 = new Place("acokavai","Acokavai","Radviliškio rajono savivaldybė","LT",55.72656);
-        addPlace(p1);
+        Place p1 = new Place("abromiskes", "Abromiškės", "Elektrėnų savivaldybė", "LT", 54.7825);
+        Place p2 = new Place("acokavai", "Acokavai", "Radviliškio rajono savivaldybė", "LT", 55.72656);
+        Place p3 = new Place("adakavas", "Adakavas", "Tauragės rajono savivaldybė", "LT", 55.40348);
+
+//        addPlace(p2);
+//        List<Place> users = getPlaces();
+//         System.out.println(users);
+//        Place place = getPlace("abromiskes");
+//        System.out.println(place);
+//        updatePlace(p2);
+//         deletePlace(p2);
+
     }
 
 
-    public static void deletePlace(Place place){
+    public static void deletePlace(Place place) {
         List<Place> places = getPlaces();
         places.stream()
                 .filter(u -> u.equals(place))
@@ -30,7 +39,7 @@ public class Main {
         updateJson(places);
     }
 
-    public static void updatePlace(Place place){
+    public static void updatePlace(Place place) {
         List<Place> places = getPlaces();
         places.stream()
                 .filter(u -> u.equals(place))
@@ -40,24 +49,16 @@ public class Main {
         updateJson(places);
     }
 
-    public static void addPlace(Place place){
+    public static void addPlace(Place place) {
         List<Place> places = getPlaces();
         places.add(place);
         updateJson(places);
     }
 
-    public static void updateJson(List<Place> places){
-        try(FileWriter writer = new FileReader("places.json",true)){
-            gson.toJson(places,writer);
-        }catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public static void addPlaceOld(Place place){
-        try(FileWriter writer = new FileReader("place.json",true)){
-            gson.toJson(place,writer);
-        }catch (IOException e) {
+    public static void updateJson(List<Place> places) {
+        try (FileWriter writer = new FileWriter("places.json")) {
+            gson.toJson(places, writer);
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
