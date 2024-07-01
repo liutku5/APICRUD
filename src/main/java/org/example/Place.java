@@ -6,13 +6,13 @@ public class Place {
     private String name;
     private String administrativeDivision;
     private String countryCode;
-    private String coordinates;
+    private double coordinates;
 
 
     public Place() {
     }
 
-    public Place(String code, String name, String administrativeDivision, String countryCode, String coordinates) {
+    public Place(String code, String name, String administrativeDivision, String countryCode, double coordinates) {
         this.code = code;
         this.name = name;
         this.administrativeDivision = administrativeDivision;
@@ -52,11 +52,11 @@ public class Place {
         this.countryCode = countryCode;
     }
 
-    public String getCoordinates() {
+    public double getCoordinates() {
         return coordinates;
     }
 
-    public void setCoordinates(String coordinates) {
+    public void setCoordinates(double coordinates) {
         this.coordinates = coordinates;
     }
 
