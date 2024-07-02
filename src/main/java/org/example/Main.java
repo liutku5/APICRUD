@@ -14,11 +14,11 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Hello world!");
         gson = new Gson();
-        Place p1 = new Place("abromiskes", "Abromiškės", "Elektrėnų savivaldybė", "LT", 54.7825);
-        Place p2 = new Place("acokavai", "Acokavai", "Radviliškio rajono savivaldybė", "LT", 55.72656);
-        Place p3 = new Place("adakavas", "Adakavas", "Tauragės rajono savivaldybė", "LT", 55.40348);
+        Place p1 = new Place("abromiskes", "Abromiškės", "Elektrėnų savivaldybė", "LT", "54.7825", "24.71032");
+        Place p2 = new Place("acokavai", "Acokavai", "Radviliškio rajono savivaldybė", "LT", "55.72656", "23.34748");
+        Place p3 = new Place("adakavas", "Adakavas", "Tauragės rajono savivaldybė", "LT", "55.40348", "22.66207");
 
-//        addPlace(p2);
+//        addPlace(p1);
 //        List<Place> users = getPlaces();
 //         System.out.println(users);
 //        Place place = getPlace("abromiskes");
@@ -75,7 +75,10 @@ public class Main {
                     String name = jsonObject.get("name").getAsString();
                     String adminDivision = jsonObject.get("administrativeDivision").getAsString();
                     String countryCode = jsonObject.get("countryCode").getAsString();
-                    double coordinates = jsonObject.get("coordinates").getAsDouble();
+                    JsonObject coordinatesObj = jsonObject.getAsJsonObject("coordinates");
+                    String latitude = coordinatesObj.get("latitude").getAsString();
+                    String longitude = coordinatesObj.get("longitude").getAsString();
+                    Coordinates coordinates = new Coordinates(latitude, longitude);
 
                     Place place = new Place();
                     place.setCode(placeCode);
@@ -104,7 +107,10 @@ public class Main {
                 String name = jsonObject.get("name").getAsString();
                 String adminDivision = jsonObject.get("administrativeDivision").getAsString();
                 String countryCode = jsonObject.get("countryCode").getAsString();
-                double coordinates = jsonObject.get("coordinates").getAsDouble();
+                JsonObject coordinatesObj = jsonObject.getAsJsonObject("coordinates");
+                String latitude = coordinatesObj.get("latitude").getAsString();
+                String longitude = coordinatesObj.get("longitude").getAsString();
+                Coordinates coordinates = new Coordinates(latitude, longitude);
 
                 Place place = new Place();
                 place.setCode(placeCode);

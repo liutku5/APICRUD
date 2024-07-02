@@ -8,18 +8,18 @@ public class Place {
     private String name;
     private String administrativeDivision;
     private String countryCode;
-    private double coordinates;
+    private Coordinates coordinates;
 
 
     public Place() {
     }
 
-    public Place(String code, String name, String administrativeDivision, String countryCode, double coordinates) {
+    public Place(String code, String name, String administrativeDivision, String countryCode, String latitude,String longitude) {
         this.code = code;
         this.name = name;
         this.administrativeDivision = administrativeDivision;
         this.countryCode = countryCode;
-        this.coordinates = coordinates;
+        this.coordinates = new Coordinates(latitude,longitude);
     }
 
     public String getCode() {
@@ -54,11 +54,11 @@ public class Place {
         this.countryCode = countryCode;
     }
 
-    public double getCoordinates() {
+    public Coordinates getCoordinates() {
         return coordinates;
     }
 
-    public void setCoordinates(double coordinates) {
+    public void setCoordinates(Coordinates coordinates) {
         this.coordinates = coordinates;
     }
 
@@ -81,12 +81,12 @@ public class Place {
 
     @Override
     public String toString() {
-        return "User{" +
+        return "Place{" +
                 "code='" + code + '\'' +
                 ", name='" + name + '\'' +
                 ", administrativeDivision='" + administrativeDivision + '\'' +
                 ", countryCode='" + countryCode + '\'' +
-                ", cordinates='" + coordinates + '\'' +
+                ", coordinates=" + coordinates +
                 '}';
     }
 }
