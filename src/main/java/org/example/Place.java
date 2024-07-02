@@ -14,12 +14,20 @@ public class Place {
     public Place() {
     }
 
-    public Place(String code, String name, String administrativeDivision, String countryCode, String latitude,String longitude) {
+//    public Place(String code, String name, String administrativeDivision, String countryCode, String latitude,String longitude) {
+//        this.code = code;
+//        this.name = name;
+//        this.administrativeDivision = administrativeDivision;
+//        this.countryCode = countryCode;
+//        this.coordinates = new Coordinates(latitude,longitude);
+//    }
+
+    public Place(String code, String name, String administrativeDivision, String countryCode, Coordinates coordinates) {
         this.code = code;
         this.name = name;
         this.administrativeDivision = administrativeDivision;
         this.countryCode = countryCode;
-        this.coordinates = new Coordinates(latitude,longitude);
+        this.coordinates = coordinates;
     }
 
     public String getCode() {
@@ -82,11 +90,11 @@ public class Place {
     @Override
     public String toString() {
         return "Place{" +
-                "code='" + code + '\'' +
-                ", name='" + name + '\'' +
-                ", administrativeDivision='" + administrativeDivision + '\'' +
-                ", countryCode='" + countryCode + '\'' +
-                ", coordinates=" + coordinates +
+                "code: '" + code + '\'' +
+                ", name: '" + name + '\'' +
+                ", administrativeDivision: '" + administrativeDivision + '\'' +
+                ", countryCode: '" + countryCode + '\'' +
+                ", coordinates: " + coordinates +
                 '}';
     }
 }
