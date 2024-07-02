@@ -29,27 +29,21 @@ public class Main {
 //        updatePlace(p2);
 //         deletePlace(p2);
 
-//        API();
-////        System.out.println(new Place());
-//        Scanner sc = new Scanner(System.in);
-//        //  uzd1 istraukti miesta is API, sukonstruoti jo java objektą ir atspausdinti consolėje su .toString();
-//        System.out.println("Pasirinkite miestą ir jo orus kuriuos norite matyti");
-//        String city = sc.nextLine();
-//        String url = "https://api.meteo.lt/v1/places/" + city ;
-//        System.out.println(url);
-
         //  uzd2 pagal įvestą miestą surasti:
         //  patį miestą, (iš jo atvaizduosime "administrativeDivision")
         //  jo dabartinius orus, sukonstruoti forecastTimestamp objektų masyvą ir savo nuožiūra
         // gražiai ir aiškiai atvaizduoti.
 
-//        url = "https://api.meteo.lt/v1/places/" + city + "/forcasts/long-term";
+//        getApiDataAboutPlace();
+        getApiDataAboutWeather();
+    }
+
+    public static void getApiDataAboutPlace() {
 
         Scanner sc = new Scanner(System.in);
-        System.out.println("Pasirinkite miestą ir jo orus kuriuos norite matyti");
+        System.out.println("Pasirinkite miestą kurio duomenis norite matyti.");
         String city = sc.nextLine();
         String url = "https://api.meteo.lt/v1/places/" + city;
-//        System.out.println(url);
 
         try {
             String jsonResponse = getJsonResponse(url);
@@ -57,6 +51,25 @@ public class Main {
             System.out.println(place);
         } catch (Exception e) {
             System.out.println("An error occurred.");
+        }
+    }
+
+    public static void getApiDataAboutWeather() {
+
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Pasirinkite miestą kurio orus norite matyti.");
+        String city = sc.nextLine();
+        String url = "https://api.meteo.lt/v1/places/" + city + "/forecasts/long-term";
+
+        try {
+            String jsonResponse = getJsonResponse(url);
+            ForecastTimestamp place = parseJsonWeather(jsonResponse);
+            System.out.println(place);
+        } catch (Exception e) {
+            System.out.println("An error occurred: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            sc.close();
         }
     }
 
@@ -97,27 +110,19 @@ public class Main {
         return new Place(code, name, administrativeDivision, countryCode, coordinates);
     }
 
-//    private static void API() {
-//        try {
-//            URL url = new URL("https://api.meteo.lt/v1/places");
-//            HttpURLConnection con = (HttpURLConnection) url.openConnection();
-//            con.setRequestMethod("GET");
-//
-//            BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream(), StandardCharsets.UTF_8));
-//            String response = "";
-//            String line;
-//            while ((line = reader.readLine()) != null) {
-//                response += line;
-//            }
-//            JsonObject jsonResponse = gson.fromJson(response, JsonObject.class);
-//            JsonArray usersArray = jsonResponse.getAsJsonArray("data");
-//            Place[] places = gson.fromJson(usersArray, Place[].class);
-//            System.out.println(places);
-//
-//            reader.close();
-//        } catch (Exception e) {
-//        }
-//    }
+    private static ForecastTimestamp parseJsonWeather(String jsonResponse) {
+        Gson gson = new Gson();
+        JsonObject jsonObject = JsonParser.parseString(jsonResponse).getAsJsonObject();
+
+        String name = jsonObject.get("place").getAsJsonObject().get("name").getAsString();
+        String forecastTimeUtc = jsonObject.get("forecastTimestamps").getAsJsonArray().get(0).getAsJsonObject().get("forecastTimeUtc").getAsString();
+        String airTemperature = jsonObject.get("forecastTimestamps").getAsJsonArray().get(0).getAsJsonObject().get("airTemperature").getAsString();
+        String windSpeed = jsonObject.get("forecastTimestamps").getAsJsonArray().get(0).getAsJsonObject().get("windSpeed").getAsString();
+        String relativeHumidity = jsonObject.get("forecastTimestamps").getAsJsonArray().get(0).getAsJsonObject().get("relativeHumidity").getAsString();
+        String conditionCode = jsonObject.get("forecastTimestamps").getAsJsonArray().get(0).getAsJsonObject().get("conditionCode").getAsString();
+
+        return new ForecastTimestamp(name, forecastTimeUtc, airTemperature, windSpeed, relativeHumidity, conditionCode);
+    }
 
     public static void deletePlace(Place place) {
         List<Place> places = getPlaces();
